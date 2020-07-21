@@ -3,13 +3,14 @@ import * as basic from "./basic.mjs"
 
 /**
  * Vector集合
+ * @param {*} initial 初始数组
  * @param {*} compare 比较函数，例如：compare = (a, b) => { return a == b }
  */
-export const Vector = (compare = (a, b) => { return a == b }) => {
+export const Vector = (initial = null, compare = (a, b) => { return a == b }) => {
     // 匹配函数
     const _compare = compare
     // 元素数组
-    let _data = []
+    let _data = basic.copy(initial)
 
     /**
      * 添加元素
@@ -150,7 +151,7 @@ export const Vector = (compare = (a, b) => { return a == b }) => {
      */
     function foreach(action) {
         for (let i in _data) {
-            if (!action(_data[i])) break
+            if (action(_data[i]) == false) break
         }
     }
 

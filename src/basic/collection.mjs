@@ -11,23 +11,24 @@ import * as Stack from "./stack.mjs"
  * List集合
  * @param {*} compare 
  */
-export const list = (compare = (a, b) => { return a === b }) => {
+export const list = (compare = (a, b) => { return a == b }) => {
     return List.List(compare)
 }
 
 /**
  * Vector集合
+ * @param {*} initial 初始数组
  * @param {*} compare 
  */
-export const vector = (compare = (a, b) => { return a === b }) => {
-    return Vector.Vector(compare)
+export const vector = (initial = null, compare = (a, b) => { return a == b }) => {
+    return Vector.Vector(initial, compare)
 }
 
 /**
  * Set集合
  * @param {*} compare 匹配函数
  */
-export const set = (compare = (a, b) => { return a === b }) => {
+export const set = (compare = (a, b) => { return a == b }) => {
     return Set.Set(compare)
 }
 
