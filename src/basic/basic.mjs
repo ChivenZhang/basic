@@ -289,6 +289,7 @@ export const stream = (array) => {
                 }
             }
         }
+        
         _index = -1
         return {
             filter: filter,

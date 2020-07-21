@@ -9,4 +9,3 @@ basic.for1(10, i => {
 m.foreach(k => {
     console.log(m.get(k))
 })
-
