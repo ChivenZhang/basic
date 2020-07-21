@@ -1,6 +1,5 @@
-// 集合操作库
+// 集合工具库库
 
-import * as basic from "./basic.mjs"
 import * as List from "./list.mjs"
 import * as Vector from "./vector.mjs"
 import * as Set from "./set.mjs"
@@ -9,7 +8,7 @@ import * as Queue from "./queue.mjs"
 import * as Stack from "./stack.mjs"
 
 /**
- * Vector集合
+ * List集合
  * @param {*} compare 
  */
 export const list = (compare = (a, b) => { return a === b }) => {
