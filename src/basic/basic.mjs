@@ -289,11 +289,10 @@ export const stream = (array) => {
                 }
             }
         }
-        
         _index = -1
         return {
-            filter: filter,
             foreach: foreach,
+            filter: filter,
             value: value,
             clone: clone,
             index: index,
@@ -352,8 +351,8 @@ export const stream = (array) => {
     }
 
     return {
-        filter: filter,
         foreach: foreach,
+        filter: filter,
         value: value,
         clone: clone,
         index: index,
