@@ -25,6 +25,19 @@ export const Stack = () => {
     }
 
     /**
+     * 获取数据
+     * @returns 数组
+     */
+    function value() {
+        let result = []
+        _vector.foreach(e => {
+            result.push(e)
+            return true
+        }, false)
+        return result
+    }
+
+    /**
      * 判断空集
      */
     function size() {
@@ -45,12 +58,22 @@ export const Stack = () => {
         _vector.clear()
     }
 
+    /**
+     * 遍历元素
+     * @param action 
+     */
+    function foreach(action) {
+        _vector.foreach(action, false)
+    }
+
     return {
         push: push,
         pop: pop,
         top: top,
+        value: value,
         size: size,
         empty: empty,
-        clear: clear
+        clear: clear,
+        foreach: foreach
     }
 }

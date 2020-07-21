@@ -109,10 +109,18 @@ export const Set = (compare = (a, b) => { return a == b }) => {
     /**
      * 遍历元素
      * @param {*} action 遍历函数，例如：e => {return true}
+     * @param {*} forward 前向遍历标志
      */
-    function foreach(action) {
-        for (let i in _data) {
-            if (action(_data[i]) == false) break
+    function foreach(action, forward = true) {
+        if (forward == true) {
+            for (let i=0; i<_data.length; ++i) {
+                if (action(_data[i]) == false) break
+            }
+        } else {
+            for (let i = _data.length - 1; i >= 0; --i) {
+                if (action(_data[i]) == false) break
+                if (_data.length <= i) i = _data.length - 1
+            }
         }
     }
 

@@ -37,10 +37,11 @@ export const List = (compare = (a, b) => { return a == b }) => {
             if (ptr == _tail) {
                 _tail = _new
             }
-            if (ptr.next) {
-                _new.next = ptr.next
-                ptr.next.last = _new
+            let current = ptr.next
+            if (current) {
+                current.last = _new
             }
+            _new.next = current
             _new.last = ptr
             ptr.next = _new
             ++_size
@@ -59,13 +60,16 @@ export const List = (compare = (a, b) => { return a == b }) => {
         let ptr = _head
         while (ptr.next) {
             if (_compare(e, ptr.next.data)) {
-                if (ptr.next == _tail) {
+                let current = ptr.next
+                if (_tail == current) {
                     _tail = ptr
                 }
-                if (ptr.next.next) {
-                    ptr.next.next.last = ptr
+                if (current.next) {
+                    current.next.last = ptr
                 }
-                ptr.next = ptr.next.next
+                ptr.next = current.next
+                current.last = null
+                current.next = null
                 --_size
                 result = true
             }
@@ -83,13 +87,16 @@ export const List = (compare = (a, b) => { return a == b }) => {
         if (index >= 0 && index < _size) {
             let ptr = _head
             for (let i = 0; i < index; ++i) ptr = ptr.next
-            if (ptr.next == _tail) {
+            let current = ptr.next
+            if (_tail == current) {
                 _tail = ptr
             }
-            if (ptr.next.next) {
-                ptr.next.next.last = ptr
+            if (current.next) {
+                current.next.last = ptr
             }
-            ptr.next = ptr.next.next
+            ptr.next = current.next
+            current.last = null
+            current.next = null
             --_size
             return true
         }
@@ -208,7 +215,13 @@ export const List = (compare = (a, b) => { return a == b }) => {
      * 清除所有元素
      */
     function clear() {
-        _head = { next: null, last: null, data: null }
+        let ptr = _head
+        while(ptr){
+            let next = ptr.next
+            ptr.next = null
+            ptr.last = null
+            ptr = next
+        }
         _tail = _head
         _size = 0
     }
@@ -216,12 +229,21 @@ export const List = (compare = (a, b) => { return a == b }) => {
     /**
      * 遍历元素
      * @param {*} action 遍历函数，例如：e => {return true}
+     * @param {*} forward 前向遍历标志
      */
-    function foreach(action) {
-        let ptr = _head.next
-        while (ptr) {
-            if (action(ptr.data) == false) break
-            ptr = ptr.next
+    function foreach(action, forward = true) {
+        if (forward == true) {
+            let ptr = _head.next
+            while (ptr) {
+                if (action(ptr.data) == false) break
+                ptr = ptr.next
+            }
+        } else {
+            let ptr = _tail
+            while(ptr != null && ptr != _head){
+                if (action(ptr.data) == false) break
+                ptr = ptr.last
+            }
         }
     }
 

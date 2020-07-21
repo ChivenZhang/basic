@@ -11,3 +11,5 @@ basic.for1(5, i=>{
 vec.foreach(k => {
     console.log(k)
 })
+console.log(vec.value())
+console.log('size', vec.size())
