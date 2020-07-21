@@ -1,2 +1,2 @@
 # basic
-java-like collection library in javascript
+Java-like collection library in JavaScript
