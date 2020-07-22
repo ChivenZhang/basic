@@ -53,7 +53,7 @@ export const Vector = (initial = null, compare = (a, b) => { return a == b }) =>
     /**
      * 替换元素
      * @param {*} e 元素
-     * @param {*} equal 匹配函数，例如：e => {return true}
+     * @param {*} equal 匹配函数，例如：e => true
      * @returns 操作结果
      */
     function replace(e, equal) {
@@ -97,13 +97,11 @@ export const Vector = (initial = null, compare = (a, b) => { return a == b }) =>
 
     /**
      * 查找元素
-     * @param {*} equal 匹配函数，例如：e => {return true}
+     * @param {*} equal 匹配函数，例如：e => true
      * @returns 元素数组
      */
     function find(equal) {
-        return basic.stream(_data).filter(e => {
-            return equal(e)
-        }).value()
+        return basic.stream(_data).filter(e => equal(e) == true).value()
     }
 
     /**
@@ -147,7 +145,7 @@ export const Vector = (initial = null, compare = (a, b) => { return a == b }) =>
 
     /**
      * 遍历元素
-     * @param {*} action 遍历函数，例如：e => {return true}
+     * @param {*} action 遍历函数，例如：e => true
      * @param {*} forward 前向遍历标志
      */
     function foreach(action, forward = true) {

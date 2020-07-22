@@ -17,7 +17,7 @@ export const Set = (compare = (a, b) => { return a == b }) => {
      */
     function add(e) {
         for (let i in _data) {
-            if (_compare(_data[i], e)) {
+            if (_compare(_data[i], e) == true) {
                 return false
             }
         }
@@ -30,7 +30,7 @@ export const Set = (compare = (a, b) => { return a == b }) => {
      * @param {*} e 元素
      */
     function remove(e) {
-        return basic.remove(_data, ee => { return _compare(e, ee) })
+        return basic.remove(_data, ee => _compare(e, ee))
     }
 
     /**
@@ -49,7 +49,7 @@ export const Set = (compare = (a, b) => { return a == b }) => {
      * @param {*} e 元素
      */
     function exist(e) {
-        return basic.indexOf(_data, ee => { return _compare(e, ee) }) !== -1
+        return basic.indexOf(_data, ee => _compare(e, ee)) != -1
     }
 
     /**
@@ -62,27 +62,10 @@ export const Set = (compare = (a, b) => { return a == b }) => {
     /**
      * 查找元素
      * @param {*} equal 匹配函数，例如：e => {return true}
+     * @returns 元素数组
      */
-    function find(e) {
-        let result = null
-        basic.stream(_data).foreach(ee => {
-            if (_compare(e, ee)) {
-                result = ee
-                return false
-            }
-            return true
-        })
-        return result
-    }
-
-    /**
-     * 查找所有元素
-     * @param {*} equal 匹配函数，例如：e => {return true}
-     */
-    function findAll(e) {
-        return basic.stream(_data).filter(ee => {
-            return _compare(e, ee)
-        }).value()
+    function find(equal) {
+        return basic.stream(_data).filter(e => equal(e) == true).value()
     }
 
     /**
@@ -113,7 +96,7 @@ export const Set = (compare = (a, b) => { return a == b }) => {
      */
     function foreach(action, forward = true) {
         if (forward == true) {
-            for (let i=0; i<_data.length; ++i) {
+            for (let i = 0; i < _data.length; ++i) {
                 if (action(_data[i]) == false) break
             }
         } else {
@@ -130,7 +113,6 @@ export const Set = (compare = (a, b) => { return a == b }) => {
         get: get,
         exist: exist,
         find: find,
-        findAll: findAll,
         value: value,
         clear: clear,
         size: size,

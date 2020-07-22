@@ -2,14 +2,11 @@
 import * as basic from "./basic/basic.mjs"
 import * as com from "./basic/collection.mjs"
 
-let vec = com.vector()
+let queue = com.map()
 
 basic.for1(5, i=>{
-    vec.add(i)
+    queue.put(i, i*10)
 })
 
-vec.foreach(k => {
-    console.log(k)
-})
-console.log(vec.value())
-console.log('size', vec.size())
+console.log(queue.values())
+

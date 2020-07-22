@@ -57,7 +57,7 @@ export const Map = (bucket = 33, hash = numhash) => {
         let col = _index(hash)
         let column = _data[col]
         let result = column.find({ hash: hash })
-        return (result) ? result.value : null
+        return (result.length) ? result[0].value : null
     }
 
     /**
@@ -99,11 +99,13 @@ export const Map = (bucket = 33, hash = numhash) => {
      * 获取键集合
      * @returns 键数组
      */
-    function keys() {
+    function keys(equal = e => true) {
         let result = []
         basic.stream(_data).filter(e => {
             e.foreach(ee => {
-                result.push(ee.key)
+                if (equal(ee.key) == true) {
+                    result.push(ee.key)
+                }
             })
             return false
         })
@@ -114,11 +116,13 @@ export const Map = (bucket = 33, hash = numhash) => {
      * 获取值集合
      * @returns 值数组
      */
-    function values() {
+    function values(equal = e => true) {
         let result = []
         basic.stream(_data).filter(e => {
             e.foreach(ee => {
-                result.push(ee.value)
+                if (equal(ee.value) == true) {
+                    result.push(ee.value)
+                }
             })
             return false
         })
